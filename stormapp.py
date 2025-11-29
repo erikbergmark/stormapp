@@ -5,6 +5,19 @@ import joblib
 
 counties = pd.read_csv("illinois_counties.csv")
 counties = counties.drop(["fips"], axis=1)
+
+counties["county"] = counties["county"].str.upper()
+counties_fix = {
+    "DE-WITT": "DE WITT",
+    "JO-DAVIESS": "JO DAVIESS",
+    "ROCK-ISLAND": "ROCK ISLAND",
+    "ST-CLAIR": "ST. CLAIR",
+    "DUPAGE": "DU PAGE",
+    "DEKALB": "DE KALB",
+    "LASALLE": "LA SALLE"
+}
+counties["county"].replace(counties_fix, inplace=True)
+
 counties["county"] = counties["county"].str.title()
 
 #create full dataframe from before
@@ -144,7 +157,7 @@ else:
     st.caption(f"({storm_damage_count} out of {storm_events_count} {storm_type} events caused damage in {county})")
     
 
-    
+st.text("Note: Data collected from 2015-2025") 
 
 
 
